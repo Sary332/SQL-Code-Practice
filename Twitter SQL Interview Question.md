@@ -22,4 +22,5 @@ ORDER BY 1;
 
 ```
 
+<img width="314" alt="image" src="https://github.com/Sary332/SQL-Code-Practice/assets/110008177/aca5d606-c335-4042-99e1-b7f19f4acd92">
 
