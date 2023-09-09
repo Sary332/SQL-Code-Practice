@@ -9,17 +9,17 @@ In other words, group the users by the number of tweets they posted in 2022 and 
 
 #### Solution :
 
-'''sql
-
+```sql
 SELECT tweet_bucket, COUNT(*) AS user_num
 FROM (
-       SELECT user_id, COUNT(*) AS tweet_bucket
-       FROM tweets
-       WHERE EXTRACT('year' FROM tweet_date) = 2022
-       GROUP BY user_id
-     ) AS tweet_counts_per_user
+    SELECT user_id, COUNT(*) AS tweet_bucket
+    FROM tweets
+    WHERE EXTRACT('year' FROM tweet_date) = 2022
+    GROUP BY user_id
+) AS tweet_counts_per_user
 GROUP BY 1
 ORDER BY 1;
-'''
+
+```
 
 
