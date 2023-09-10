@@ -9,7 +9,7 @@ order.
 There are no duplicates in the candidates table.
 
 <img width="122" alt="image" src="https://github.com/Sary332/SQL-Code-Practice/assets/110008177/e82a44f2-73d8-4b97-b790-d2da5f1d3002">
-<img width="122" alt="image" src="https://github.com/Sary332/SQL-Code-Practice/assets/110008177/fa16ba55-c2cf-4630-ad29-5e43bac4562c">
+<img width="142" alt="image" src="https://github.com/Sary332/SQL-Code-Practice/assets/110008177/23d59357-ad71-4d81-b9cc-bbd8ac5d0cc9">
 
 ## Solution :
 ```sql
