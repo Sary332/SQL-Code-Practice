@@ -8,6 +8,7 @@ in 2022 and round the results to 2 decimal places.
 
 <img width="200" alt="image" src="https://github.com/Sary332/SQL-Code-Practice/assets/110008177/f98c1f5f-1b59-46d6-887a-cfd70a089180">
 
+## Solution :
 ```sql
 SELECT  app_id
        ,round((100.0 * click/impression),2) as CTR
