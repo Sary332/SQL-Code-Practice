@@ -6,10 +6,11 @@ activities grouped by age group. Round the percentage to 2 decimal places in the
 
 **Notes:**
 
-**- Calculate the following percentages:**
-      - Time spent sending / (Time spent sending + Time spent opening)
-      - Time spent opening / (Time spent sending + Time spent opening)
-  - To avoid integer division in percentages, multiply by 100.0 and not 100.
+- Calculate the following percentages:
+  
+      -- Time spent sending / (Time spent sending + Time spent opening)
+      -- Time spent opening / (Time spent sending + Time spent opening)
+- To avoid integer division in percentages, multiply by 100.0 and not 100.
 
 <img width="326" alt="image" src="https://github.com/Sary332/SQL-Code-Practice/assets/110008177/838e348e-12b7-40c8-b788-336c27e29f99">
 <img width="218" alt="image" src="https://github.com/Sary332/SQL-Code-Practice/assets/110008177/08956d62-998c-45b3-afdb-3d281bced651">
