@@ -21,7 +21,9 @@ SELECT user_id,
 FROM tweets;
 ```
 Output showing the first 5 rows:
+
 <img width="305" alt="image" src="https://github.com/Sary332/SQL-Code-Practice/assets/110008177/3d36f43d-496d-490a-8a7f-cbd1258c8d8b">
+
 The output shows the rolling average tweet count for the cumulative number of days.
 
 **Calculating the rolling average tweet count:**
@@ -51,6 +53,7 @@ SELECT  user_id,
 FROM tweets;
 ```
 Output showing the first 5 rows:
+
 <img width="306" alt="image" src="https://github.com/Sary332/SQL-Code-Practice/assets/110008177/e3dcdb50-44d7-4717-ae14-6dea8c489ad9">
 
 This query outputs the rolling average tweet count by 3-day period, as required by the question.
