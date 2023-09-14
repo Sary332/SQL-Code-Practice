@@ -15,6 +15,6 @@ FROM posts
 WHERE  date_part('year', post_date :: date) = 2021
 GROUP BY user_id
 HAVING count(user_id) >1
-ODER BY 2 desc;
+ORDER BY 2 desc;
 ```
 <img width="265" alt="image" src="https://github.com/Sary332/SQL-Code-Practice/assets/110008177/55a2f96c-2ee4-4ef4-b788-8c0a147ff0dc">
