@@ -7,6 +7,7 @@ The STATION table is described as follows:
 <img width="329" alt="image" src="https://github.com/user-attachments/assets/2bf652e1-4d36-4f3c-ae6b-bfbd04138c94" />
 
 **Explanation :**
+
 When ordered alphabetically, the CITY names are listed as ABC, DEF, PQRS, and WXY, with lengths 3,3,4 and 3 . The longest name is PQRS,
 but there are 3 options for shortest named city. Choose ABC, because it comes first alphabetically.
 
@@ -29,6 +30,7 @@ FROM (SELECT TOP 1 CITY, LEN(CITY) AS LENGTH
       FROM STATION ORDER BY LEN(CITY) DESC, CITY) T2
 ```
 <img width="379" alt="image" src="https://github.com/user-attachments/assets/87732753-a183-4f41-a960-e256ff205043" />
+
 
 ```SQL
 /* CARA 2 */
