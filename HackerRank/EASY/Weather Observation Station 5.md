@@ -32,6 +32,8 @@ FROM (SELECT TOP 1 CITY, LEN(CITY) AS LENGTH
 <img width="379" alt="image" src="https://github.com/user-attachments/assets/87732753-a183-4f41-a960-e256ff205043" />
 
 
+
+
 ```SQL
 /* CARA 2 */
 
