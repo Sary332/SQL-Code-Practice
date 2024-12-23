@@ -11,6 +11,7 @@ The STATION table is described as follows:
 
 ## Solution
 <img width="388" alt="image" src="https://github.com/user-attachments/assets/6d61b6fd-c411-4d85-a9ed-32263711eee0" />
+
 ```sql
 SELECT 
     CAST(
