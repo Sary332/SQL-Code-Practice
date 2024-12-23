@@ -22,4 +22,5 @@ SELECT CASE WHEN A+B <= C OR A+C <= B OR B+C <= A THEN 'Not A Triangle'
         END AS TRIANGEL_TYPE
 FROM  TRIANGLES 
 ```
-<img width="325" alt="image" src="https://github.com/user-attachments/assets/b5527cd5-816e-4a66-b13c-9eeba425033e" />
+<img width="293" alt="image" src="https://github.com/user-attachments/assets/82271fbf-0b05-4018-b623-36bb01245d32" />
+
