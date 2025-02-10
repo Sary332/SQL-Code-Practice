@@ -10,8 +10,8 @@ Root: If node is root node.
 Leaf: If node is leaf node.
 Inner: If node is neither root nor leaf node.
 
-## SOLUTION
-``SQL
+## SOLUTION :
+```SQL
 SELECT N, 
        CASE WHEN P IS NULL THEN 'Root'
             WHEN N IN (SELECT  P FROM BST WHERE P IS NOT NULL) THEN 'Inner'
@@ -20,4 +20,7 @@ SELECT N,
 FROM  BST
 ORDER BY N
 ```
+<img width="347" alt="image" src="https://github.com/user-attachments/assets/4206ee19-86fd-484a-8781-db48d3316ce7" />
+
+
 
