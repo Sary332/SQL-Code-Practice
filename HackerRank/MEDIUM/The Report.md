@@ -52,3 +52,9 @@ ORDER BY
 |NULL |4| 34|
 |NULL |3| 24|
 
+## NOTES :
+- CASE WHEN Grade < 8 THEN NULL ELSE Name END AS Name: Mengatur agar nama siswa grade di bawah 8 menjadi NULL.
+- ORDER BY Grade DESC: Mengurutkan nilai dari yang tertinggi ke terendah.
+- CASE WHEN Grade BETWEEN 8 AND 10 THEN Name: Mengurutkan nama siswa untuk grade 8-10 secara alfabetis.
+- CASE WHEN Grade < 8 THEN Marks: Jika grade di bawah 8, gunakan nilai Marks untuk pengurutan tambahan dalam urutan naik.
+
