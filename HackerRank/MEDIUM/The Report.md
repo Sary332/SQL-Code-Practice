@@ -26,6 +26,8 @@ ORDER BY
         CASE WHEN GRADE BETWEEN 8 AND 10 THEN NAME END ASC,
         CASE WHEN GRADE < 8 THEN MARKS END ASC
 ```
+## RESULT :
+
 |NAME | GRADE | MARKS |
 |:-----:|:-----:|:-----:|
 |Britney |10| 95|
