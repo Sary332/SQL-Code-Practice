@@ -20,4 +20,4 @@ SELECT N,
 FROM  BST
 ORDER BY N
 ```
-<img width="347" alt="image" src="https://github.com/user-attachments/assets/9c094db5-ea48-4cb3-97e6-0f601ee4f769" />
+
