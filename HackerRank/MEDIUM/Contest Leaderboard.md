@@ -14,13 +14,13 @@ The following tables contain contest data:
 - Submissions: The submission_id is the id of the submission, hacker_id is the id of the hacker who made the submission,
 challenge_id is the id of the challenge for which the submission belongs to, and score is the score of the submission.
 
-<img width="315" alt="image" src="https://github.com/user-attachments/assets/bd8235b0-7e1f-483e-8e86-7461c1a68e47" />
+  <img width="315" alt="image" src="https://github.com/user-attachments/assets/bd8235b0-7e1f-483e-8e86-7461c1a68e47" />
 
 **Sample Input :**
 
 Hackers Table & Submissions Table :
 
-<img width="173" alt="image" src="https://github.com/user-attachments/assets/03e3ae0a-0e5d-46ec-9510-a12ed2cddb4a" />  <img width="191" alt="image" src="https://github.com/user-attachments/assets/364575f4-1de1-4ca0-8fd1-d4192981040f" />
+  <img width="173" alt="image" src="https://github.com/user-attachments/assets/03e3ae0a-0e5d-46ec-9510-a12ed2cddb4a" />  <img width="191" alt="image" src="https://github.com/user-attachments/assets/364575f4-1de1-4ca0-8fd1-d4192981040f" />
 
 
 **Explanation :** 
@@ -54,3 +54,5 @@ GROUP BY HACKER_ID, NAME
 HAVING SUM(MAX_SCORE) > 0
 ORDER BY SUM(MAX_SCORE) DESC, HACKER_ID ASC
 ```
+<img width="327" alt="image" src="https://github.com/user-attachments/assets/6b0bf74c-e8f5-4f49-b2bf-02c1c83f77b7" />
+
