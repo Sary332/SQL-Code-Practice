@@ -28,7 +28,11 @@ The name output, when ordered by the salary offered to their friends, will be:
 ## SOLUTION :
 ```SQL
 WITH SALARY_INFO AS (
-SELECT S.ID, S.NAME AS NAME, P1.SALARY AS SALARY, F. FRIEND_ID, P2.SALARY AS FRIEND_SALARY
+SELECT S.ID,
+       S.NAME AS NAME,
+       P1.SALARY AS SALARY,
+       F. FRIEND_ID,
+       P2.SALARY AS FRIEND_SALARY
 FROM
      STUDENTS S
 JOIN
