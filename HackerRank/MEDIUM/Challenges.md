@@ -28,7 +28,7 @@ The following tables contain challenge data:
 WITH CHALLENGES_BOARD AS (
 SELECT H.HACKER_ID, 
        H.NAME, 
-       COUNT(C.CHALLENGE_ID) AS NUM_CHALLEGES
+       COUNT(C.CHALLENGE_ID) AS NUM_CHALLENGES
 FROM HACKERS H
 JOIN 
     CHALLENGES C ON H.HACKER_ID = C.HACKER_ID
@@ -39,15 +39,15 @@ SELECT HACKER_ID,
        NAME, 
        NUM_CHALLEGES 
 FROM CHALLENGES_BOARD
-GROUP BY HACKER_ID, NAME, NUM_CHALLEGES 
+GROUP BY HACKER_ID, NAME, NUM_CHALLENGES 
 HAVING NUM_CHALLEGES = (SELECT MAX(NUM_CHALLEGES) FROM  CHALLENGES_BOARD ) 
             OR
        NUM_CHALLEGES IN 
-                       (SELECT NUM_CHALLEGES 
+                       (SELECT NUM_CHALLENGES 
                         FROM  CHALLENGES_BOARD 
-                        GROUP BY NUM_CHALLEGES 
-                        HAVING COUNT (NUM_CHALLEGES) = 1 ) 
-ORDER BY NUM_CHALLEGES DESC, HACKER_ID ASC
+                        GROUP BY NUM_CHALLENGES 
+                        HAVING COUNT (NUM_CHALLENGES) = 1 ) 
+ORDER BY NUM_CHALLENGES DESC, HACKER_ID ASC
 ```
 <img width="360" alt="image" src="https://github.com/user-attachments/assets/61468a7a-b7a5-4310-9a8f-8a1c1e693df8" />
 
