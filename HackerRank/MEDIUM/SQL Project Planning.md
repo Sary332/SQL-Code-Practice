@@ -13,6 +13,7 @@ start date of the project.
 
 <img width="284" alt="image" src="https://github.com/user-attachments/assets/6f828f48-648f-4bff-bce0-77378c1cf0e7" />
 
+
 **Explanation**
 
 The example describes following four projects:
@@ -27,6 +28,7 @@ The example describes following four projects:
   so it took 1 day to complete the project.
 
   ## SOLUTION :
+  
 ```SQL
 WITH PROJECTS_GROUP AS (
     
@@ -48,9 +50,39 @@ GROUP BY GROUP_ID
 SELECT START_DATE,
        END_DATE
 FROM PROJECTS_DURATION
-ORDER BY DURATION ASC, START_DATE ASC
+ORDER BY DURATION,
+         START_DATE 
 ```
 <img width="350" alt="image" src="https://github.com/user-attachments/assets/af98a362-f883-43c5-bf61-9c2a6e932b9d" />
 
+### NOTES :
 
-  
+**1. ProjectGroups CTE:**
+
+- Instead of nesting window functions, we directly calculate a GroupID by using DATEADD(day, -ROW_NUMBER() OVER (ORDER BY
+  End_Date), End_Date). This creates a unique identifier for consecutive End_Date values.
+- For example, if End_Date values are consecutive, the GroupID will be the same for those rows.
+
+**ProjectDurations CTE:**
+
+- I group by the GroupID and calculate the minimum Start_Date and maximum End_Date for each group.
+- I also calculate the duration of each project using DATEDIFF(day, MIN(Start_Date), MAX(End_Date)) + 1.
+
+Pertanyaan yang bagus! Penambahan `+ 1` dalam perhitungan durasi (`DATEDIFF(day, MIN(Start_Date), MAX(End_Date)) + 1`) diperlukan karena **`DATEDIFF` menghitung perbedaan antara dua tanggal berdasarkan batas (boundary) hari**, bukan jumlah hari secara inklusif.
+
+#### Mengapa +1 ? 
+
+1. **Cara Kerja `DATEDIFF`**:
+   - Fungsi `DATEDIFF(day, Start_Date, End_Date)` menghitung jumlah batas hari antara `Start_Date` dan `End_Date`.
+   - Misalnya, jika `Start_Date = 2023-10-01` dan `End_Date = 2023-10-03`, maka `DATEDIFF(day, '2023-10-01', '2023-10-03')` akan mengembalikan **2**, karena ada 2 batas hari:
+     - Dari `2023-10-01` ke `2023-10-02` (batas 1).
+     - Dari `2023-10-02` ke `2023-10-03` (batas 2).
+
+2. **Kenapa `+ 1`?**:
+   - Dalam konteks proyek, kita ingin menghitung **total hari secara inklusif**, termasuk hari pertama dan hari terakhir.
+   - Misalnya, jika proyek dimulai pada `2023-10-01` dan berakhir pada `2023-10-03`, maka total hari yang dihabiskan adalah **3 hari**:
+     - `2023-10-01` (hari 1),
+     - `2023-10-02` (hari 2),
+     - `2023-10-03` (hari 3).
+   - Namun, `DATEDIFF` hanya mengembalikan **2** untuk contoh ini. Oleh karena itu, kita perlu menambahkan `+ 1` untuk menghitung hari secara inklusif.
+
