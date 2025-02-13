@@ -97,7 +97,7 @@ ORDER BY CON.CONTEST_ID
 
 " The real issue was the duplicates in the stats tables (view_stats and submission_stats)."
 
-====
+===
 
 2. Alasan utama mengapa subquery digunakan untuk tabel `View_Stats` (`V`) dan `Submission_Stats` (`S`) dalam query tersebut adalah untuk **mengoptimalkan performa** dan **memastikan agregasi data yang benar**. Berikut adalah penjelasan detailnya:
 
