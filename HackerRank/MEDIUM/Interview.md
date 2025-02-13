@@ -4,7 +4,7 @@ Samantha interviews many candidates from different colleges using coding challen
 
 Note: A specific contest can be used to screen candidates at more than one college, but each college only holds  screening contest.
 
-===
+----
 
 **Input Format :**
 
