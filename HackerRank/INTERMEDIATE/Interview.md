@@ -92,14 +92,15 @@ ORDER BY CON.CONTEST_ID
 
 
 ### NOTES :
-**1. Why i cant just do a simple joins ?? bcuz :**
+**Why i cant just do a simple joins ?? bcuz :**
 
 "To anyone who is wondering why simple inner join and performing sum() using group by does not work: One of the reason is, the set of challenge_ids in View_Stats does not equal to the set of challenge_ids in Submission_Stats. Therefore, using simple inner join to join stats data with the contest table will lead to missing records. It's not your fault."
 
 " The real issue was the duplicates in the stats tables (view_stats and submission_stats)."
 
-===
-2. Alasan utama mengapa subquery digunakan untuk tabel `View_Stats` (`V`) dan `Submission_Stats` (`S`) dalam query tersebut adalah untuk **mengoptimalkan performa** dan **memastikan agregasi data yang benar**. Berikut adalah penjelasan detailnya:
+---
+
+**Alasan utama mengapa subquery digunakan untuk tabel `View_Stats` (`V`) dan `Submission_Stats` (`S`) dalam query** tersebut adalah untuk **mengoptimalkan performa** dan **memastikan agregasi data yang benar**. Berikut adalah penjelasan detailnya:
 
 #### **1. Mengoptimalkan Performa**
 - **Tanpa Subquery**:
