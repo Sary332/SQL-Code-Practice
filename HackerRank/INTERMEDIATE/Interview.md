@@ -172,3 +172,5 @@ Penggunaan subquery untuk `View_Stats` (`V`) dan `Submission_Stats` (`S`) dalam 
 2. **Akurasi agregasi**: Menghindari duplikasi data dan memastikan hasil agregasi yang benar.
 3. **Penanganan NULL**: Memastikan bahwa `NULL` dihandle dengan benar.
 4. **Modularitas**: Memisahkan logika agregasi dari logika join, membuat query lebih mudah dipahami dan dipelihara.
+
+"MENGAJARKAN DATA VALIDATION SEBELUM PROSESING" 
