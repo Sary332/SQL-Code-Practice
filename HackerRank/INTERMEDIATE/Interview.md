@@ -92,3 +92,82 @@ ORDER BY CON.CONTEST_ID
 
 
 ### NOTES :
+**1. Why i cant just do a simple joins ?? bcuz :**
+"To anyone who is wondering why simple inner join and performing sum() using group by does not work: One of the reason is, the set of challenge_ids in View_Stats does not equal to the set of challenge_ids in Submission_Stats. Therefore, using simple inner join to join stats data with the contest table will lead to missing records. It's not your fault."
+
+" The real issue was the duplicates in the stats tables (view_stats and submission_stats)."
+
+====
+
+2. Alasan utama mengapa subquery digunakan untuk tabel `View_Stats` (`V`) dan `Submission_Stats` (`S`) dalam query tersebut adalah untuk **mengoptimalkan performa** dan **memastikan agregasi data yang benar**. Berikut adalah penjelasan detailnya:
+
+#### **1. Mengoptimalkan Performa**
+- **Tanpa Subquery**:
+  Jika kita langsung melakukan `LEFT JOIN` dengan tabel `View_Stats` dan `Submission_Stats` tanpa subquery, maka database akan melakukan join pada setiap baris di tabel `View_Stats` dan `Submission_Stats` yang sesuai dengan `challenge_id`.
+  - Ini bisa menghasilkan banyak baris sementara (intermediate rows) yang tidak diperlukan, terutama jika ada banyak data di `View_Stats` dan `Submission_Stats`.
+  - Proses join akan lebih lambat karena database harus memproses lebih banyak baris.
+
+- **Dengan Subquery**:
+  Dengan menggunakan subquery, kita **mengelompokkan dan mengagregasi data terlebih dahulu** di `View_Stats` dan `Submission_Stats` sebelum melakukan join.
+  - Subquery mengurangi jumlah baris yang perlu di-join karena data sudah diagregasi (dijumlahkan) per `challenge_id`.
+  - Ini membuat proses join lebih cepat dan efisien.
+
+**Contoh**:
+- Jika `View_Stats` memiliki 1000 baris untuk 100 `challenge_id`, subquery akan mengelompokkannya menjadi 100 baris (satu baris per `challenge_id`).
+- Tanpa subquery, database harus memproses 1000 baris saat join.
+
+---
+
+#### **2. Memastikan Agregasi Data yang Benar**
+- **Tanpa Subquery**:
+  Jika kita langsung melakukan join dengan `View_Stats` dan `Submission_Stats`, maka saat melakukan agregasi (misalnya `SUM`), kita bisa mendapatkan hasil yang salah karena duplikasi data.
+  - Misalnya, jika satu `challenge_id` memiliki beberapa baris di `View_Stats` atau `Submission_Stats`, join langsung akan menghasilkan beberapa baris untuk `challenge_id` yang sama.
+  - Saat melakukan `SUM`, nilai tersebut akan dihitung berkali-kali, yang menyebabkan hasil agregasi tidak akurat.
+
+- **Dengan Subquery**:
+  Subquery memastikan bahwa data di `View_Stats` dan `Submission_Stats` sudah diagregasi per `challenge_id` sebelum di-join.
+  - Ini menghindari duplikasi data dan memastikan hasil agregasi (seperti `SUM`) akurat.
+
+**Contoh**:
+- Jika `View_Stats` memiliki data berikut:
+  | challenge_id | total_views | total_unique_views |
+  |--------------|-------------|--------------------|
+  | 1            | 100         | 50                 |
+  | 1            | 200         | 100                |
+  - Tanpa subquery, join akan menghasilkan dua baris untuk `challenge_id = 1`.
+  - Dengan subquery, data akan diagregasi terlebih dahulu menjadi:
+    | challenge_id | total_views | total_unique_views |
+    |--------------|-------------|--------------------|
+    | 1            | 300         | 150                |
+  - Ini memastikan bahwa `SUM` dihitung dengan benar.
+
+---
+
+#### **3. Menghindari Masalah NULL**
+- **Tanpa Subquery**:
+  Jika kita langsung melakukan join dengan `View_Stats` dan `Submission_Stats`, dan ada `challenge_id` yang tidak memiliki data di salah satu tabel tersebut, maka hasil join akan mengandung `NULL`.
+  - Ini bisa menyebabkan masalah saat melakukan agregasi, karena `NULL` akan diabaikan oleh fungsi agregasi seperti `SUM`.
+
+- **Dengan Subquery**:
+  Subquery memastikan bahwa setiap `challenge_id` memiliki baris di hasil subquery, bahkan jika tidak ada data di `View_Stats` atau `Submission_Stats`.
+  - Jika tidak ada data, subquery akan mengembalikan `NULL` untuk kolom yang diagregasi, yang kemudian dihandle oleh `ISNULL` atau `COALESCE`.
+
+---
+
+#### **4. Memisahkan Logika Agregasi**
+- **Dengan Subquery**:
+  Subquery memisahkan logika agregasi (seperti `SUM`) dari logika join.
+  - Ini membuat query lebih modular dan mudah dipahami.
+  - Jika ada perubahan pada logika agregasi (misalnya, menambahkan kolom baru), kita hanya perlu mengubah subquery, bukan seluruh query.
+
+- **Tanpa Subquery**:
+  Logika agregasi dan join dicampur dalam satu query, yang bisa membuat query lebih sulit dibaca dan dipelihara.
+
+---
+
+#### **Kesimpulan**
+Penggunaan subquery untuk `View_Stats` (`V`) dan `Submission_Stats` (`S`) dalam query tersebut memiliki beberapa keuntungan:
+1. **Optimasi performa**: Mengurangi jumlah baris yang perlu di-join.
+2. **Akurasi agregasi**: Menghindari duplikasi data dan memastikan hasil agregasi yang benar.
+3. **Penanganan NULL**: Memastikan bahwa `NULL` dihandle dengan benar.
+4. **Modularitas**: Memisahkan logika agregasi dari logika join, membuat query lebih mudah dipahami dan dipelihara.
