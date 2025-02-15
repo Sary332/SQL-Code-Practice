@@ -2,11 +2,8 @@
 
 P(R) represents a pattern drawn by Julia in R rows. The following pattern represents P(5):
 
-* * * * * 
-* * * * 
-* * * 
-* * 
-*
+<img width="152" alt="image" src="https://github.com/user-attachments/assets/ee31b53c-32a9-4a2c-a0bd-c572ef5d50f2" />
+
 Write a query to print the pattern P(20).
 
 ## SOLUTION :
