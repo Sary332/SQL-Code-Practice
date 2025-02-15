@@ -39,6 +39,91 @@ ORDER BY RN
 <img width="404" alt="image" src="https://github.com/user-attachments/assets/feffa282-cd4e-4872-aa14-9f23fdcbd0bb" />
 
 
+## NOTES:
+Your current query attempts to pivot the `Occupation` column using `CASE` statements, but it has a few issues:
+
+1. **Incorrect Sorting**: The `ORDER BY` clause is applied to the entire result set, but it doesn't properly sort the names under each occupation.
+2. **No Row Numbering**: Without assigning row numbers to each occupation, the names won't align correctly in the pivoted format.
+3. **NULL Handling**: The `CASE` statements in the `SELECT` clause don't handle cases where there are no more names for an occupation.
+
+To achieve the desired output, you need to:
+1. Assign a row number to each name within its occupation.
+2. Use these row numbers to align the names under their respective occupations.
+3. Pivot the data using conditional aggregation.
+
+---
+
+### **Explanation**
+
+1. **Common Table Expression (CTE)**:
+   - The `OccupationRowNumbers` CTE assigns a row number (`RowNum`) to each name within its occupation, sorted alphabetically.
+   - Example:
+     | Name       | Occupation | RowNum |
+     |------------|------------|--------|
+     | Samantha   | Actor      | 1      |
+     | Julia      | Actor      | 2      |
+     | Maria      | Professor  | 1      |
+     | Ashley     | Professor  | 2      |
+
+2. **Pivoting with Conditional Aggregation**:
+   - The `SELECT` statement uses `MAX(CASE ...)` to pivot the data.
+   - For each `RowNum`, it selects the name corresponding to each occupation.
+   - Example:
+     - For `RowNum = 1`, it selects the first `Doctor`, first `Professor`, first `Singer`, and first `Actor`.
+     - For `RowNum = 2`, it selects the second `Doctor`, second `Professor`, etc.
+
+3. **Grouping and Ordering**:
+   - The `GROUP BY RowNum` ensures that each row in the result corresponds to a specific `RowNum`.
+   - The `ORDER BY RowNum` ensures that the rows are displayed in the correct order.
+
+4. **NULL Handling**:
+   - If there are no more names for a specific occupation at a given `RowNum`, the `MAX(CASE ...)` will return `NULL`.
+
+---
+
+### **Example Input and Output**
+
+#### Input Table: `OCCUPATIONS`
+| Name      | Occupation |
+|-----------|------------|
+| Ashley    | Professor  |
+| Samantha  | Actor      |
+| Julia     | Doctor     |
+| Britney   | Professor  |
+| Maria     | Professor  |
+| Meera     | Professor  |
+| Priya     | Doctor     |
+| Priyanka  | Professor  |
+| Jennifer  | Actor      |
+| Ketty     | Professor  |
+| Belvet    | Professor  |
+| Naomi     | Professor  |
+| Jane      | Singer     |
+| Jenny     | Singer     |
+| Kristeen  | Singer     |
+| Christeen | Singer     |
+| Eve       | Actor      |
+| Aamina    | Doctor     |
+
+#### Output:
+| Doctor  | Professor | Singer   | Actor     |
+|---------|-----------|----------|-----------|
+| Julia   | Ashley    | Jane     | Samantha  |
+| Priya   | Britney   | Jenny    | Jennifer  |
+| Aamina  | Maria     | Kristeen | Eve       |
+| NULL    | Meera     | Christeen| NULL      |
+| NULL    | Priyanka  | NULL     | NULL      |
+| NULL    | Ketty     | NULL     | NULL      |
+| NULL    | Belvet    | NULL     | NULL      |
+| NULL    | Naomi     | NULL     | NULL      |
+
+---
+
+### **Key Points**
+1. **Row Numbering**: The `ROW_NUMBER()` function ensures that names are assigned a unique number within their occupation, which is crucial for aligning them in the pivoted format.
+2. **Pivoting**: The `MAX(CASE ...)` technique is used to pivot the data into separate columns for each occupation.
+3. **NULL Handling**: If there are no more names for an occupation at a specific `RowNum`, the query automatically returns `NULL`.
+
 
 
 
