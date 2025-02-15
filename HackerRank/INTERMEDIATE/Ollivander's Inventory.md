@@ -45,5 +45,11 @@ ORDER BY POWER_LEVEL DESC,AGE DESC
 ```
 <img width="340" alt="image" src="https://github.com/user-attachments/assets/2391e466-3b86-4b59-b3ee-c8e770173f8c" />
 
+## NOTES :
+Penjelasan Query:
+- Gunakan PARTITION BY age, power untuk mengelompokkan data berdasarkan kombinasi age dan power.
+- Gunakan ORDER BY coins_needed ASC agar harga termurah (coins_needed) muncul pertama dalam setiap grup.
+- Gunakan ROW_NUMBER() untuk memberi nomor urut dalam setiap grup (rn = 1 berarti yang termurah).
+- Pilih hanya rn = 1 untuk mendapatkan baris dengan harga termurah dalam setiap grup (age, power).
 
 
