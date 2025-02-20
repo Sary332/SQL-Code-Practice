@@ -1,5 +1,3 @@
-# SQL-Code-Practice
-
 <table>
   <tr>
     <td align="center" width="60%">
