@@ -28,6 +28,6 @@ UNION ALL
 SELECT CONCAT('There are a total of ',COUNT(*),' ',LOWER(OCCUPATION),'s.') AS occupation_count
 FROM OCCUPATIONS 
 GROUP BY OCCUPATION
-ORDER BY occupation_count 
+ORDER BY occupation_count  --Nama aliasanya harus sama karena pakai union all
 ```
 <img width="431" alt="image" src="https://github.com/user-attachments/assets/8e4ba1bc-3542-4eec-b6bb-5ee86b2dd6e7" />
