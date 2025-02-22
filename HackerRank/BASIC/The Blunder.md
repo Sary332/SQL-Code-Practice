@@ -15,8 +15,9 @@ The EMPLOYEES table is described as follows:
 ```sql
 SELECT
     CAST(
-          CEILING(AVG(CAST(salary AS float)) -
-           AVG(CAST(REPLACE(salary, 0, '') AS float))
+          CEILING(AVG(CAST(salary AS float)) --OG Salary
+                         -
+           AVG(CAST(REPLACE(salary, 0, '') AS float)) --Miscalculated Salary
           ) AS int
         ) AS RIGHT_CALCULATION
 FROM EMPLOYEES
