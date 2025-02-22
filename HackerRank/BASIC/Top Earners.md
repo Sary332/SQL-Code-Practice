@@ -10,7 +10,8 @@ The Employee table containing employee data for a company is described as follow
 
 ## Solution :
 ```sql
-SELECT TOP 1 (SALARY * MONTHS),COUNT(*) AS Total_Employees
+SELECT TOP 1 (SALARY * MONTHS), --Kalau pakai MAX() tidak akan keluar satu nilai
+       COUNT(*) AS Total_Employees
 FROM EMPLOYEE
 GROUP BY (SALARY * MONTHS)
 ORDER BY (SALARY * MONTHS) DESC
