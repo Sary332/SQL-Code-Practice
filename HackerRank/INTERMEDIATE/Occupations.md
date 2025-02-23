@@ -28,7 +28,10 @@ SELECT NAME,
 FROM OCCUPATIONS
 )
 
-SELECT MAX(CASE WHEN OCCUPATION = 'DOCTOR' THEN NAME  END) AS DOCTOR, --Analoginya : Kita memaksimalkan dulu nilai non-nullx
+/* Analoginya : Kita memaksimalkan dulu nilai non-nullx untuk dikeluarkan dan jika ada null maka kita
+urut atau simpan paling terakhir */
+
+SELECT MAX(CASE WHEN OCCUPATION = 'DOCTOR' THEN NAME  END) AS DOCTOR, 
        MAX(CASE WHEN OCCUPATION = 'PROFESSOR' THEN NAME END) AS PROFESSOR,
        MAX(CASE WHEN OCCUPATION = 'SINGER' THEN NAME END) AS SINGER,
        MAX(CASE WHEN OCCUPATION = 'ACTOR' THEN NAME END) AS ACTOR
