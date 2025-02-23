@@ -1,4 +1,4 @@
-Pertanyaan yang sangat bagus! Memahami kapan harus menggunakan subquery dalam `JOIN` adalah keterampilan penting dalam menulis query SQL. Berikut adalah **panduan langkah demi langkah** untuk membantu Anda berpikir seperti itu ketika menghadapi masalah serupa di masa depan:
+Memahami kapan harus menggunakan subquery dalam `JOIN` adalah keterampilan penting dalam menulis query SQL. Berikut adalah **panduan langkah demi langkah** untuk membantu Anda berpikir seperti itu ketika menghadapi masalah serupa di masa depan:
 
 ---
 
