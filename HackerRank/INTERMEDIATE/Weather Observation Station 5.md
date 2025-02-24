@@ -21,7 +21,7 @@ You can write two separate queries to get the desired output. It need not be a s
 SELECT * 
 FROM (SELECT TOP 1 CITY, LEN(CITY) AS LENGTH 
       FROM STATION 
-      ORDER BY LEN(CITY) ASC, CITY) T 
+      ORDER BY LEN(CITY) ASC, CITY) T1 
 
 UNION 
 
