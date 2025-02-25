@@ -47,7 +47,7 @@ HAVING NUM_CHALLEGES = (SELECT MAX(NUM_CHALLEGES) FROM  CHALLENGES_BOARD )
        NUM_CHALLEGES IN 
                        (SELECT NUM_CHALLENGES 
                         FROM  CHALLENGES_BOARD 
-                        GROUP BY NUM_CHALLENGES 
+                        GROUP BY NUM_CHALLENGES --Bcuz dia nnti hanya berapa bnayak angka yang sama muncul
                         HAVING COUNT (NUM_CHALLENGES) = 1 ) 
 ORDER BY NUM_CHALLENGES DESC, HACKER_ID ASC
 ```
