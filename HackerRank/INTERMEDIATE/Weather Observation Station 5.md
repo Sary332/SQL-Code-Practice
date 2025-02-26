@@ -23,7 +23,8 @@ FROM (SELECT TOP 1 CITY, LEN(CITY) AS LENGTH
       FROM STATION 
       ORDER BY LEN(CITY) ASC, CITY) T1 
 
-UNION 
+UNION /* ORDER BY tidak boleh digunakan sebelum UNION. Solusi yang benar adalah menggunakan subquery atau
+CTE untuk mengurutkan data sebelum menggabungkannya dengan UNION.*/
 
 SELECT * 
 FROM (SELECT TOP 1 CITY, LEN(CITY) AS LENGTH 
