@@ -71,7 +71,7 @@ ORDER BY U.SUBMISSION_DATE;
 
 ## EXPLANATION :
 
-Tentu! Mari kita jelaskan kode ini langkah demi langkah. Kode ini bertujuan untuk menganalisis data dari tabel `SUBMISSIONS` dan `HACKERS` untuk menghasilkan laporan harian yang mencakup:
+ Kode ini bertujuan untuk menganalisis data dari tabel `SUBMISSIONS` dan `HACKERS` untuk menghasilkan laporan harian yang mencakup:
 
 1. **Jumlah hacker unik** yang melakukan submission setiap hari.
 2. **Hacker dengan jumlah submission terbanyak** setiap hari.
