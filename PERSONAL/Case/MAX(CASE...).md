@@ -1,5 +1,5 @@
 ## Q1
-Pertanyaan yang sangat bagus! Mari kita bahas mengapa penggunaan `MAX(CASE ...)` diperlukan untuk menjaga urutan data, dan apa yang terjadi jika hanya menggunakan `CASE` tanpa `MAX`.
+Mengapa penggunaan `MAX(CASE ...)` diperlukan untuk menjaga urutan data, dan apa yang terjadi jika hanya menggunakan `CASE` tanpa `MAX`.
 
 ---
 
