@@ -176,7 +176,7 @@ INNER JOIN
 ---
 ## NOTES :
 
-Tentu! Mari kita gunakan analogi sehari-hari untuk menjelaskan konsep **Self Join** dan bagaimana kondisi `ON` bekerja, khususnya untuk kasus hierarki seperti manager-karyawan atau departemen induk-anak.
+Analogi sehari-hari untuk menjelaskan konsep **Self Join** dan bagaimana kondisi `ON` bekerja, khususnya untuk kasus hierarki seperti manager-karyawan atau departemen induk-anak.
 
 ---
 
