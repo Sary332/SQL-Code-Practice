@@ -173,3 +173,66 @@ INNER JOIN
 4. **Hindari Self Join yang Tidak Perlu**:  
    Jika data bisa diambil dengan cara lain (misalnya, menggunakan subquery), pertimbangkan untuk tidak menggunakan Self Join.
 
+---
+## NOTES :
+
+Tentu! Mari kita gunakan analogi sehari-hari untuk menjelaskan konsep **Self Join** dan bagaimana kondisi `ON` bekerja, khususnya untuk kasus hierarki seperti manager-karyawan atau departemen induk-anak.
+
+---
+
+### **Analogi 1: Karyawan dan Manajer**
+Bayangkan Anda berada di sebuah perusahaan. Setiap karyawan memiliki:
+- **Nama** (misalnya, Budi, Ani, Cici, Dodi).
+- **Manager** (misalnya, Budi adalah manager Ani dan Cici, Ani adalah manager Dodi).
+
+#### **Kondisi `ON` dalam Self Join:**
+- `K1.id_manager = K2.id_karyawan` bisa diibaratkan seperti:
+  - **K1** adalah karyawan yang sedang Anda tanyakan: "Siapa manager saya?"
+  - **K2** adalah orang yang Anda tuju untuk mencari jawabannya: "Oh, manager saya adalah Budi."
+
+#### **Contoh:**
+- Jika Anda adalah **Ani**, maka:
+  - `K1.id_manager` adalah ID manager Ani (misalnya, Budi).
+  - `K2.id_karyawan` adalah ID Budi.
+  - Jadi, `K1.id_manager = K2.id_karyawan` berarti: "Manager Ani adalah Budi."
+
+---
+
+### **Analogi 2: Departemen dan Departemen Induk**
+Bayangkan sebuah perusahaan memiliki beberapa departemen:
+- **HR** adalah departemen induk.
+- **IT** dan **Finance** adalah departemen anak dari HR.
+- **Development** adalah departemen anak dari IT.
+
+#### **Kondisi `ON` dalam Self Join:**
+- `D1.id_parent_departemen = D2.id_departemen` bisa diibaratkan seperti:
+  - **D1** adalah departemen yang sedang Anda tanyakan: "Siapa departemen induk saya?"
+  - **D2** adalah departemen yang Anda tuju untuk mencari jawabannya: "Oh, departemen induk saya adalah HR."
+
+#### **Contoh:**
+- Jika Anda adalah **IT**, maka:
+  - `D1.id_parent_departemen` adalah ID departemen induk IT (misalnya, HR).
+  - `D2.id_departemen` adalah ID HR.
+  - Jadi, `D1.id_parent_departemen = D2.id_departemen` berarti: "Departemen induk IT adalah HR."
+
+---
+
+### **Apa yang Terjadi Jika Kondisi `ON` Salah?**
+Misalnya, jika Anda menulis:
+- `K1.id_karyawan = K2.id_manager` (untuk karyawan dan manajer).
+- `D1.id_departemen = D2.id_parent_departemen` (untuk departemen).
+
+Ini seperti:
+- Bertanya: "Siapa karyawan yang saya manage?" (padahal Anda adalah karyawan biasa, bukan manager).
+- Atau bertanya: "Siapa departemen anak saya?" (padahal Anda adalah departemen anak, bukan departemen induk).
+
+Hasilnya akan kacau karena Anda bertanya dengan arah yang salah.
+
+---
+
+### **Kesimpulan dalam Analogi**
+- **Self Join** seperti bertanya: "Siapa manager saya?" atau "Siapa departemen induk saya?"
+- Kondisi `ON` adalah cara Anda mencari jawabannya:
+  - Untuk karyawan: "Manager saya adalah orang dengan ID yang cocok dengan `id_manager` saya."
+  - Untuk departemen: "Departemen induk saya adalah departemen dengan ID yang cocok dengan `id_parent_departemen` saya."
+- Pastikan Anda bertanya dengan arah yang benar, yaitu dari "anak" ke "induk."
