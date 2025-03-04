@@ -94,6 +94,92 @@ SELECT *
 FROM Customers C
 JOIN Orders O ON C.CustomerName LIKE '%' + O.OrderName + '%';
 ```
+### **Arti dari Klausa Tersebut**
+1. **`C.CustomerName`**:
+   - Ini merujuk ke kolom `CustomerName` di tabel `C` (biasanya tabel pelanggan).
+
+2. **`O.OrderName`**:
+   - Ini merujuk ke kolom `OrderName` di tabel `O` (biasanya tabel pesanan).
+
+3. **`LIKE`**:
+   - Operator `LIKE` digunakan untuk mencocokkan string (teks) berdasarkan pola tertentu.
+
+4. **`'%' + O.OrderName + '%'`**:
+   - `%` adalah wildcard dalam SQL yang berarti "nol atau lebih karakter".
+   - `'%' + O.OrderName + '%'` berarti mencocokkan `CustomerName` yang mengandung teks dari `OrderName` di mana pun posisinya (di awal, tengah, atau akhir).
+
+---
+
+### **Contoh Kasus**
+Misalkan:
+- Tabel `C` (Customers):
+  ```
+  CustomerName
+  -------------
+  John Doe
+  Jane Smith
+  Alice Johnson
+  ```
+
+- Tabel `O` (Orders):
+  ```
+  OrderName
+  ----------
+  Doe
+  Smith
+  ```
+
+Query:
+```sql
+SELECT *
+FROM Customers C
+JOIN Orders O
+ON C.CustomerName LIKE '%' + O.OrderName + '%'
+```
+
+**Hasilnya**:
+- `John Doe` akan cocok dengan `Doe`.
+- `Jane Smith` akan cocok dengan `Smith`.
+- `Alice Johnson` tidak akan cocok dengan apa pun.
+
+Jadi, hasil query akan mengembalikan baris-baris di mana `CustomerName` mengandung `OrderName`.
+
+---
+
+### **Kapan Klausa Ini Digunakan?**
+Klausa ini biasanya digunakan ketika Anda ingin mencocokkan data berdasarkan teks yang **tidak persis sama**, tetapi memiliki kemiripan. Contoh penggunaan:
+1. Mencari pelanggan yang namanya mengandung kata kunci tertentu.
+2. Mencocokkan data dari dua tabel berdasarkan pola teks.
+
+---
+
+### **Catatan Penting**
+1. **Performance**:
+   - Menggunakan `LIKE` dengan wildcard (`%`) di awal dan akhir (seperti `'%value%'`) bisa **lambat** karena database harus memindai seluruh teks. Ini tidak menggunakan indeks secara efisien.
+   - Jika dataset besar, pertimbangkan untuk menggunakan teknik lain seperti full-text search atau preprocessing data.
+
+2. **Case Sensitivity**:
+   - `LIKE` biasanya **case-insensitive** di sebagian besar database (seperti MySQL), tetapi di beberapa database (seperti PostgreSQL), Anda mungkin perlu menggunakan `ILIKE` untuk pencarian yang tidak memperhatikan huruf besar/kecil.
+
+3. **Wildcard Lain**:
+   - `%` cocok dengan nol atau lebih karakter.
+   - `_` cocok dengan satu karakter tunggal.
+
+---
+
+### **Contoh Lain**
+Jika Anda hanya ingin mencocokkan `CustomerName` yang **dimulai** dengan `OrderName`, Anda bisa menulis:
+```sql
+ON C.CustomerName LIKE O.OrderName + '%'
+```
+
+Jika Anda ingin mencocokkan `CustomerName` yang **diakhiri** dengan `OrderName`, Anda bisa menulis:
+```sql
+ON C.CustomerName LIKE '%' + O.OrderName
+```
+
+---
+
 
 #### b. Menggunakan `OR`:
 ```sql
@@ -107,6 +193,97 @@ JOIN Table2 T2 ON T1.X = T2.Y OR T1.Y = T2.X;
 SELECT *
 FROM Employees E
 JOIN Departments D ON LOWER(E.DepartmentName) = LOWER(D.DepartmentName);
+```
+### **Arti dari Klausa Tersebut**
+1. **`LOWER(E.DepartmentName)`**:
+   - Fungsi `LOWER` mengubah semua karakter dalam kolom `DepartmentName` dari tabel `E` menjadi huruf kecil.
+   - Contoh: `"Sales"` akan menjadi `"sales"`, dan `"HR"` akan menjadi `"hr"`.
+
+2. **`LOWER(D.DepartmentName)`**:
+   - Fungsi `LOWER` juga mengubah semua karakter dalam kolom `DepartmentName` dari tabel `D` menjadi huruf kecil.
+
+3. **`=`**:
+   - Operator `=` digunakan untuk membandingkan apakah kedua nilai tersebut sama.
+
+---
+
+### **Mengapa Menggunakan `LOWER`?**
+- **Case Sensitivity**: Beberapa database (seperti PostgreSQL) bersifat **case-sensitive**, artinya `"Sales"` dan `"sales"` dianggap sebagai dua nilai yang berbeda.
+- Dengan menggunakan `LOWER`, Anda memastikan bahwa perbandingan dilakukan tanpa memperhatikan huruf besar/kecil. Ini berguna ketika data tidak konsisten dalam penulisan huruf.
+
+---
+
+### **Contoh Kasus**
+Misalkan:
+- Tabel `E` (Employees):
+  ```
+  DepartmentName
+  --------------
+  Sales
+  HR
+  IT
+  ```
+
+- Tabel `D` (Departments):
+  ```
+  DepartmentName
+  --------------
+  sales
+  hr
+  finance
+  ```
+
+Query:
+```sql
+SELECT *
+FROM Employees E
+JOIN Departments D
+ON LOWER(E.DepartmentName) = LOWER(D.DepartmentName)
+```
+
+**Hasilnya**:
+- `Sales` (dari `E`) akan cocok dengan `sales` (dari `D`).
+- `HR` (dari `E`) akan cocok dengan `hr` (dari `D`).
+- `IT` (dari `E`) tidak akan cocok dengan apa pun di tabel `D`.
+
+---
+
+### **Kapan Klausa Ini Digunakan?**
+Klausa ini digunakan ketika:
+1. Anda ingin membandingkan dua kolom teks tanpa memperhatikan huruf besar/kecil.
+2. Data di kedua tabel tidak konsisten dalam penulisan huruf (misalnya, ada yang menggunakan huruf besar, ada yang tidak).
+
+---
+
+### **Keuntungan Menggunakan `LOWER`**
+1. **Konsistensi**: Memastikan perbandingan teks tidak terpengaruh oleh perbedaan huruf besar/kecil.
+2. **Fleksibilitas**: Berguna ketika data input tidak terstandarisasi.
+
+---
+
+### **Kekurangan Menggunakan `LOWER`**
+1. **Performance**:
+   - Menggunakan fungsi seperti `LOWER` pada kolom dalam klausa `JOIN` atau `WHERE` bisa **memperlambat query** karena database harus mengubah setiap nilai menjadi huruf kecil sebelum membandingkannya.
+   - Jika kolom tersebut diindeks, indeks tidak akan digunakan secara efisien karena fungsi `LOWER` mengubah nilai asli.
+
+2. **Alternatif yang Lebih Efisien**:
+   - Jika database Anda mendukung, Anda bisa menggunakan **collation case-insensitive** saat membuat tabel atau kolom. Contoh:
+     ```sql
+     CREATE TABLE Departments (
+         DepartmentName VARCHAR(100) COLLATE Latin1_General_CI_AI
+     );
+     ```
+     - `CI` berarti **case-insensitive**, dan `AI` berarti **accent-insensitive** (mengabaikan aksen).
+   - Dengan collation ini, Anda tidak perlu menggunakan `LOWER` karena perbandingan sudah otomatis case-insensitive.
+
+---
+
+### **Contoh Query Tanpa `LOWER` (Jika Collation Case-Insensitive Digunakan)**
+```sql
+SELECT *
+FROM Employees E
+JOIN Departments D
+ON E.DepartmentName = D.DepartmentName;
 ```
 
 ---
