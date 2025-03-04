@@ -321,4 +321,3 @@ JOIN Grades G ON S.MARKS BETWEEN G.MIN_MARK AND G.MAX_MARK;
 
 ---
 
-Dengan memahami fleksibilitas klausa `ON`, Anda bisa menulis query yang lebih powerful dan sesuai dengan kebutuhan analisis data. Jika ada pertanyaan lagi, jangan ragu untuk bertanya! 😊
