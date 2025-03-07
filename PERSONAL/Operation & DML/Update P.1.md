@@ -84,6 +84,15 @@ FROM Pegawai p
 JOIN KenaikanGaji g ON p.ID = g.PegawaiID
 WHERE p.Departemen = 'IT';
 ```
+- UPDATE p: Memperbarui tabel Pegawai (diberi alias p).
+
+- SET p.Gaji = g.GajiBaru: Mengatur nilai kolom Gaji di tabel Pegawai dengan nilai GajiBaru dari tabel KenaikanGaji.
+
+- FROM Pegawai p: Menentukan tabel utama yang akan diperbarui (Pegawai).
+
+- JOIN KenaikanGaji g ON p.ID = g.PegawaiID: Menggabungkan tabel Pegawai dengan tabel KenaikanGaji berdasarkan kolom ID di Pegawai dan PegawaiID di KenaikanGaji.
+
+- WHERE p.Departemen = 'IT': Hanya memperbarui data untuk pegawai yang bekerja di departemen IT.
 
 ---
 
@@ -95,6 +104,11 @@ UPDATE Pegawai
 SET Gaji = (SELECT AVG(Gaji) FROM Pegawai WHERE Departemen = 'IT')
 WHERE Departemen = 'Marketing';
 ```
+- UPDATE Pegawai: Memperbarui tabel Pegawai.
+
+- SET Gaji = (SELECT AVG(Gaji) FROM Pegawai WHERE Departemen = 'IT'): Mengatur nilai kolom Gaji dengan rata-rata gaji dari pegawai di departemen IT.
+
+- WHERE Departemen = 'Marketing': Hanya memperbarui data untuk pegawai yang bekerja di departemen Marketing.
 
 ---
 
@@ -110,6 +124,16 @@ SET Gaji =
         ELSE Gaji
     END;
 ```
+- UPDATE Pegawai: Memperbarui tabel Pegawai.
+
+- SET Gaji = CASE ... END: Mengatur nilai kolom Gaji berdasarkan kondisi yang ditentukan.
+
+- WHEN Jabatan = 'Manager' THEN Gaji * 1.10: Jika Jabatan = 'Manager', gaji dinaikkan sebesar 10%.
+
+- WHEN Jabatan = 'Staff' THEN Gaji * 1.05: Jika Jabatan = 'Staff', gaji dinaikkan sebesar 5%.
+
+- ELSE Gaji: Jika Jabatan bukan 'Manager' atau 'Staff', gaji tetap tidak berubah.
+
 
 ---
 
@@ -121,6 +145,14 @@ UPDATE TOP (5) Pegawai
 SET Gaji = Gaji * 1.10
 WHERE Departemen = 'Sales';
 ```
+- UPDATE TOP (5): Memperbarui hanya 5 baris pertama yang memenuhi kondisi.
+
+- Pegawai: Nama tabel yang akan diperbarui.
+
+- SET Gaji = Gaji * 1.10: Menaikkan gaji sebesar 10%.
+
+- WHERE Departemen = 'Sales': Hanya memperbarui data untuk pegawai yang bekerja di departemen Sales
+
 
 ---
 
@@ -180,7 +212,6 @@ UPDATE Pegawai WITH (NOLOCK)
 SET Gaji = Gaji * 1.10
 WHERE Departemen = 'IT';
 ```
-
 ---
 
 ## **🚀 Kesimpulan**
