@@ -152,6 +152,215 @@ BULK INSERT Pegawai
 FROM 'C:\data\pegawai.csv'
 WITH (FIELDTERMINATOR = ',', ROWTERMINATOR = '\n');
 ```
+Perintah **`BULK INSERT`** di SQL Server. Perintah ini digunakan untuk memuat data dalam jumlah besar dari file eksternal (seperti file CSV) ke dalam tabel di database.
+
+---
+
+### 1. **Apa Itu `BULK INSERT`?**
+`BULK INSERT` adalah perintah SQL Server yang digunakan untuk mengimpor data dari file eksternal (seperti CSV, TXT, atau file lainnya) ke dalam tabel di database dengan cepat dan efisien. Ini sangat berguna ketika Anda perlu memuat data dalam jumlah besar.
+
+---
+
+### 2. **Sintaks Dasar**
+```sql
+BULK INSERT NamaTabel
+FROM 'PathFile'
+WITH (OPTIONS);
+```
+
+- **`NamaTabel`**: Nama tabel di database yang akan dimasukkan data.
+- **`'PathFile'`**: Path lengkap ke file eksternal yang berisi data.
+- **`WITH (OPTIONS)`**: Opsi tambahan untuk mengontrol proses impor, seperti pemisah kolom (`FIELDTERMINATOR`), pemisah baris (`ROWTERMINATOR`), dll.
+
+---
+
+### 3. **Kondisi dan Syarat**
+1. **File Harus Ada**:  
+   File eksternal yang berisi data harus ada di lokasi yang ditentukan.
+
+2. **Struktur File Harus Sesuai**:  
+   Struktur file (kolom dan baris) harus sesuai dengan struktur tabel di database.
+
+3. **Hak Akses**:  
+   Anda harus memiliki hak akses yang cukup (seperti `ADMINISTER BULK OPERATIONS` atau `INSERT` permission) untuk menjalankan perintah `BULK INSERT`.
+
+4. **Format File**:  
+   File harus dalam format yang didukung, seperti CSV, TXT, atau format lainnya.
+
+---
+
+### 4. **Opsi `WITH` yang Umum Digunakan**
+- **`FIELDTERMINATOR`**: Menentukan karakter pemisah antara kolom (misalnya, `','` untuk CSV).
+- **`ROWTERMINATOR`**: Menentukan karakter pemisah antara baris (misalnya, `'\n'` untuk baris baru).
+- **`FIRSTROW`**: Menentukan baris pertama yang akan dibaca (misalnya, `2` untuk melewati header).
+- **`CODEPAGE`**: Menentukan halaman kode untuk file (misalnya, `'ACP'` untuk ANSI).
+- **`ERRORFILE`**: Menentukan file untuk menyimpan baris yang error.
+- **`MAXERRORS`**: Menentukan jumlah maksimum error yang diizinkan sebelum proses dihentikan.
+
+---
+
+### 5. **Contoh Penggunaan**
+Misalkan Anda memiliki file `pegawai.csv` di lokasi `C:\data\pegawai.csv` dengan konten berikut:
+
+```
+ID,Nama,Jabatan
+1,Andi,Manager
+2,Budi,Staff
+3,Cici,Analyst
+```
+
+#### a. **Membuat Tabel `Pegawai`**
+```sql
+CREATE TABLE Pegawai (
+    ID INT PRIMARY KEY,
+    Nama VARCHAR(100) NOT NULL,
+    Jabatan VARCHAR(100)
+);
+```
+
+#### b. **Mengimpor Data dari File CSV**
+```sql
+BULK INSERT Pegawai
+FROM 'C:\data\pegawai.csv'
+WITH (
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+    FIRSTROW = 2  -- Melewati baris header
+);
+```
+#### Hasil di Tabel `Pegawai`:
+| ID | Nama | Jabatan  |
+|----|------|----------|
+| 1  | Andi | Manager  |
+| 2  | Budi | Staff    |
+| 3  | Cici | Analyst  |
+
+---
+
+### 6. **Fleksibilitas `BULK INSERT`**
+Anda bisa menggunakan `BULK INSERT` untuk mengimpor data dari berbagai format file dan dengan berbagai opsi.
+
+#### a. **Mengimpor Data dengan `FIRSTROW`**
+Jika file memiliki header, Anda bisa melewati baris pertama dengan `FIRSTROW`.
+
+```sql
+BULK INSERT Pegawai
+FROM 'C:\data\pegawai.csv'
+WITH (
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+    FIRSTROW = 2  -- Melewati baris header, Maksutnya tidak memasukan header yg berada di baris pertama dan langsung datanya.
+);
+```
+
+#### b. **Mengimpor Data dengan `ERRORFILE`**
+Anda bisa menyimpan baris yang error ke file tertentu.
+
+```sql
+BULK INSERT Pegawai
+FROM 'C:\data\pegawai.csv'
+WITH (
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+    FIRSTROW = 2,
+    ERRORFILE = 'C:\data\errorfile.log'
+);
+```
+
+#### c. **Mengimpor Data dengan `MAXERRORS`**
+Anda bisa menentukan jumlah maksimum error yang diizinkan.
+
+```sql
+BULK INSERT Pegawai
+FROM 'C:\data\pegawai.csv'
+WITH (
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+    FIRSTROW = 2,
+    MAXERRORS = 10  -- Maksimum 10 error
+);
+```
+
+---
+
+### 7. **Contoh Kasus Lain**
+#### a. **Mengimpor Data dari File TXT**
+Jika file menggunakan format TXT dengan pemisah tab (`\t`), Anda bisa menggunakan `FIELDTERMINATOR = '\t'`.
+
+```sql
+BULK INSERT Pegawai
+FROM 'C:\data\pegawai.txt'
+WITH (
+    FIELDTERMINATOR = '\t',
+    ROWTERMINATOR = '\n',
+    FIRSTROW = 2 -- Jika tidak melampirkan ini, maka data harus dari awal tidak memiliki header.
+);
+```
+
+#### b. **Mengimpor Data dengan `CODEPAGE`**
+Jika file menggunakan encoding tertentu, Anda bisa menentukan `CODEPAGE`.
+
+```sql
+BULK INSERT Pegawai
+FROM 'C:\data\pegawai.csv'
+WITH (
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+    FIRSTROW = 2,
+    CODEPAGE = 'ACP'  -- ANSI Code Page
+);
+```
+
+---
+
+### 8. **Tips Menggunakan `BULK INSERT`**
+1. **Periksa Struktur File**:  
+   Pastikan struktur file (kolom dan baris) sesuai dengan struktur tabel di database.
+
+2. **Gunakan `FIRSTROW` untuk Melewati Header**:  
+   Jika file memiliki header, gunakan `FIRSTROW` untuk melewati baris pertama.
+
+3. **Periksa Hak Akses**:  
+   Pastikan Anda memiliki hak akses yang cukup untuk menjalankan `BULK INSERT`.
+
+4. **Hindari File yang Terlalu Besar**:  
+   Jika file sangat besar, pertimbangkan untuk membagi file menjadi beberapa bagian.
+
+---
+
+### 9. **Contoh Query Lengkap**
+```sql
+-- Membuat tabel Pegawai
+CREATE TABLE Pegawai (
+    ID INT PRIMARY KEY,
+    Nama VARCHAR(100) NOT NULL,
+    Jabatan VARCHAR(100)
+);
+
+-- Mengimpor data dari file CSV
+BULK INSERT Pegawai
+FROM 'C:\data\pegawai.csv'
+WITH (
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+    FIRSTROW = 2  -- Melewati baris header
+);
+
+-- Menampilkan data
+SELECT * FROM Pegawai;
+```
+
+#### Hasil:
+| ID | Nama | Jabatan  |
+|----|------|----------|
+| 1  | Andi | Manager  |
+| 2  | Budi | Staff    |
+| 3  | Cici | Analyst  |
+
+---
+
+Dengan memahami penggunaan, kondisi, syarat, aturan, dan fleksibilitas `BULK INSERT`, Anda bisa mengimpor data dari file eksternal ke dalam tabel dengan lebih efektif. Jika ada pertanyaan lagi, jangan ragu untuk bertanya! 😊
+
 
 ---
 
