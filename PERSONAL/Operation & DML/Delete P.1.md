@@ -53,6 +53,14 @@ FROM Karyawan
 JOIN Departemen ON Karyawan.ID_Dept = Departemen.ID_Dept
 WHERE Departemen.Nama = 'Finance';
 ```
+- DELETE Karyawan: Menghapus baris dari tabel Karyawan.
+
+- FROM Karyawan: Menentukan tabel utama yang akan dihapus datanya.
+
+- JOIN Departemen ON Karyawan.ID_Dept = Departemen.ID_Dept: Menggabungkan tabel Karyawan dengan tabel Departemen berdasarkan kolom ID_Dept.
+
+- WHERE Departemen.Nama = 'Finance': Hanya menghapus data untuk karyawan yang bekerja di departemen Finance.
+
 📌 **Menghapus semua karyawan yang berada di departemen "Finance".**
 
 ---
